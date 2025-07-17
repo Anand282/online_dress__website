@@ -10,7 +10,7 @@ async function getDb() {
         //     useUnifiedTopology:true
         // }
     )
-    database = client.db('dressdb')
+    database = client.db('dressdb');
     if (database) {
         console.log('database connected');
     }

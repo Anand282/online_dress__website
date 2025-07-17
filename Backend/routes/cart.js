@@ -11,7 +11,7 @@ router.post("/add-to-cart", verifyToken, async (req, res) => {
         const { id, name, price, quantity, image } = req.body;
         const userEmail = req.user.email;
 
-        // Find the user and update their cart
+        
         const userCollection = db.collection("register");
         const user = await userCollection.findOne({ email: userEmail });
 
@@ -19,14 +19,14 @@ router.post("/add-to-cart", verifyToken, async (req, res) => {
             return res.status(404).json({ message: "User not found" });
         }
 
-        // Check if the item already exists in the cart
+        
         const itemIndex = user.cart?.findIndex((item) => item.id === id);
 
         if (itemIndex >= 0) {
-            // Update quantity if the item exists
+            
             user.cart[itemIndex].quantity += quantity;
         } else {
-            // Add new item to the cart
+            
             user.cart = user.cart || [];
             user.cart.push({ id, name, price, quantity, image });
         }

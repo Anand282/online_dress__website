@@ -4,7 +4,7 @@ const router = express.Router();
 
 // Define your routes here
 router.post("/login", (req, res) => {
-    // Login logic
+    
 });
 
-module.exports = router; // Correct export
+module.exports = router; 

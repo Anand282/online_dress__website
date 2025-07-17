@@ -9,9 +9,9 @@ const jwt = require("jsonwebtoken");
 const verifyToken = require("./middleware/verifyToken");
 const authRoutes = require("./routes/auth");
 const cartRoutes = require("./routes/cart");
-const saltRounds = 10; // Recommended salt rounds
+const saltRounds = 10; 
 const orderRoutes = require("./routes/order");
-
+import 'dotenv/config';
 app.use(cors());
 app.use(express.json());
 app.use(bodyParser.urlencoded({ extended: true }));
@@ -54,16 +54,16 @@ app.post("/register", upload.single("image"), async (req, res) => {
 
     try {
         if (insertForm.email && insertForm.password && insertForm.gender && insertForm.number && insertForm.age && req.file) {
-            // Hash the password before storing it
+           
             const hashedPassword = await bcrypt.hash(insertForm.password, saltRounds);
 
             const user = {
                 email: insertForm.email,
-                password: hashedPassword, // Store hashed password
+                password: hashedPassword, 
                 gender: insertForm.gender,
                 number: insertForm.number,
                 age: insertForm.age,
-                imageUrl: `/uploads/${req.file.filename}`, // Store image URL
+                imageUrl: `/uploads/${req.file.filename}`, 
             };
 
             await collection.insertOne(user);
@@ -87,10 +87,10 @@ app.post("/", async (req, res) => {
         const user = await collection.findOne({ email: username });
 
         if (user) {
-            // Compare hashed password
+            
             const isMatch = await bcrypt.compare(password, user.password);
             if (isMatch) {
-                // Generate a JWT token
+               
                 const token = jwt.sign({ email: user.email }, "your_secret_key", { expiresIn: "1h" });
 
                 res.json({ success: true, message: "Login successful", user, token });
@@ -106,16 +106,16 @@ app.post("/", async (req, res) => {
     }
 });
 
-// Profile API
+
 app.get("/profile/:email", verifyToken, async (req, res) => {
-    console.log("Token received:", req.headers.authorization);  // Debugging
+    console.log("Token received:", req.headers.authorization); 
 
     try {
         const db = await getDb();
         const collection = db.collection("register");
         const user = await collection.findOne(
             { email: req.params.email },
-            { projection: { password: 0 } } // Exclude password
+            { projection: { password: 0 } } 
         );
 
         if (!user) {
@@ -167,5 +167,5 @@ app.post("/report", async (req, res) => {
 
 app.get("/admin",)
 
-const PORT = 5000;
+const PORT = process.env.PORT || 5000;
 app.listen(PORT, () => console.log(`Server running on port ${PORT}`));

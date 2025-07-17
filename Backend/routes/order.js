@@ -4,20 +4,20 @@ const router = express.Router();
 const { getDb } = require("../db");
 const verifyToken = require("../middleware/verifyToken");
 
-// Apply verifyToken to all routes in this file
+
 router.use(verifyToken);
 
-// Create an order (protected route)
+// Create an order
 router.post("/create-order", verifyToken, async (req, res) => {
     try {
         const db = await getDb();
         const { items } = req.body;
-        const userEmail = req.user.email; // Access user email from the decoded token
+        const userEmail = req.user.email; 
 
         const order = {
             userId: userEmail,
             items,
-            status: "pending", // Default status
+            status: "pending", 
             createdAt: new Date(),
         };
 
@@ -34,7 +34,7 @@ router.post("/create-order", verifyToken, async (req, res) => {
 router.get("/", verifyToken, async (req, res) => {
     try {
         const db = await getDb();
-        const userEmail = req.user.email; // Get the user's email from the token
+        const userEmail = req.user.email; 
 
         const orderCollection = db.collection("orders");
         const orders = await orderCollection.find({ userId: userEmail }).toArray();

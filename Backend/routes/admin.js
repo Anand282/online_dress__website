@@ -7,7 +7,7 @@ const bcrypt = require("bcryptjs");
 const admin = {
     username: "admin",
     email: "admin@example.com",
-    password: "$2a$10$ExampleHash" // Hashed password (use bcrypt to hash)
+    password: "$2a$10$ExampleHash"
 };
 
 // Admin login route

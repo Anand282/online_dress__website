@@ -12,8 +12,8 @@ const RegisterForm = () => {
     });
 
     const [image, setImage] = useState(null);
-    const [preview, setPreview] = useState(null); // Image preview
-    const navigate = useNavigate(); // Initialize useNavigate
+    const [preview, setPreview] = useState(null);
+    const navigate = useNavigate(); 
 
     const on_Changes = (e) => {
         setRegister((prevRegister) => ({
