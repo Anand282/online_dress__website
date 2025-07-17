@@ -1,3 +1,4 @@
+require('dotenv').config(); 
 const express = require('express');
 const app = express();
 const cors = require('cors');
@@ -11,8 +12,7 @@ const authRoutes = require("./routes/auth");
 const cartRoutes = require("./routes/cart");
 const saltRounds = 10; 
 const orderRoutes = require("./routes/order");
-// import 'dotenv/config';
-require('dotenv').config(); 
+
 app.use(cors());
 app.use(express.json());
 app.use(bodyParser.urlencoded({ extended: true }));

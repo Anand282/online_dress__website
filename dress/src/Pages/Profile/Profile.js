@@ -17,7 +17,7 @@ const Profile = () => {
             }
 
             try {
-                const response = await axios.get(`http://localhost:5000/profile/${email}`, {
+                const response = await axios.get(`https://online-dress-website.onrender.com/profile/${email}`, {
                     headers: {
                         Authorization: `Bearer ${token}`,
                     },

@@ -17,7 +17,7 @@ const Contact = () => {
         e.preventDefault()
         try {
             if (user.email && user.name && user.message) {
-                const response = await axios.post('http://localhost:5000/contactUser', user)
+                const response = await axios.post('https://online-dress-website.onrender.com/contactUser', user)
                 console.log(response);
 
                 setUser(() => {

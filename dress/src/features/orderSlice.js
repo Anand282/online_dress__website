@@ -10,7 +10,7 @@ export const fetchOrders = createAsyncThunk(
             throw new Error("No token found");
         }
 
-        const response = await axios.get("http://localhost:5000/api/orders", { // Full URL
+        const response = await axios.get("https://online-dress-website.onrender.com/api/orders", { // Full URL
             headers: { Authorization: `Bearer ${token}` },
         });
         return response.data.orders;

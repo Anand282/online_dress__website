@@ -12,7 +12,7 @@ const Report = () => {
         e.preventDefault();
         try{
             if(report.email && report.name && report.number && report.message){  
-                const response_data = await axios.post('http://localhost:5000/report',report);
+                const response_data = await axios.post('https://online-dress-website.onrender.com/report',report);
                 console.log(response_data);
                 
                 setReport(()=>{

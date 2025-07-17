@@ -26,7 +26,7 @@ const Cart = () => {
           }
   
           const response = await axios.post(
-              "http://localhost:5000/api/orders/create-order", // Full URL
+              "https://online-dress-website.onrender.com/api/orders/create-order", // Full URL
               { items: [item] }, // Send the item as an order
               { headers: { Authorization: `Bearer ${token}` } } // Include the token
           );
