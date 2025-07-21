@@ -93,7 +93,7 @@ app.post("/register", upload.single("image"), async (req, res) => {
 });
 
 // Login API
-app.post("/login", async (req, res) => {
+app.post("/", async (req, res) => {
     const { username, password } = req.body;
     const db = await getDb();
     const collection = db.collection("register");
