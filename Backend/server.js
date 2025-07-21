@@ -12,21 +12,11 @@ const authRoutes = require("./routes/auth");
 const cartRoutes = require("./routes/cart");
 const saltRounds = 10; 
 const orderRoutes = require("./routes/order");
-
-const allowedOrigins = [
-  'https://online-dress-website-frontend.onrender.com',
-  'http://localhost:3000'
-];
-app.use(cors({
-  origin: function (origin, callback) {
-    if (!origin || allowedOrigins.includes(origin)) {
-      callback(null, true);
-    } else {
-      callback(new Error('Not allowed by CORS'));
-    }
-  },
-  credentials: true
-}));
+const corsOptions = {
+    origin: process.env.APPLICATION_URL,
+    methods:'GET,HEAD,PUT,PATCH,POST,DELETE'
+}
+app.use(cors(corsOptions));
 app.use(express.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
@@ -45,6 +35,7 @@ const storage = multer.diskStorage({
         cb(null, Date.now() + "-" + file.originalname);
     },
 });
+
 
 const upload = multer({
     storage: storage,
