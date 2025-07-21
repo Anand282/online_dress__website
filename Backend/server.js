@@ -17,14 +17,10 @@ const allowedOrigins = [
   'https://online-dress-website-frontend.onrender.com',
   'http://localhost:3000'
 ];
+
 app.use(cors({
-  origin: function (origin, callback) {
-    if (!origin || allowedOrigins.includes(origin)) {
-      callback(null, true);
-    } else {
-      callback(new Error('Not allowed by CORS'));
-    }
-  },
+  origin: 'https://online-dress-website-frontend.onrender.com',
+  methods: ['GET', 'POST', 'PUT', 'DELETE'],
   credentials: true
 }));
 app.use(express.json());
