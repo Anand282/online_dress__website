@@ -2,10 +2,6 @@ require('dotenv').config();
 const express = require('express');
 const app = express();
 const cors = require('cors');
-app.use(cors({
-  origin: 'https://online-dress-website-frontend.onrender.com',
-  credentials: true // if you're using cookies or sessions
-}));
 const multer = require("multer");
 const bodyParser = require('body-parser');
 const { getDb } = require("./db");
@@ -17,8 +13,20 @@ const cartRoutes = require("./routes/cart");
 const saltRounds = 10; 
 const orderRoutes = require("./routes/order");
 
-
-
+const allowedOrigins = [
+  'https://online-dress-website-frontend.onrender.com',
+  'http://localhost:3000'
+];
+app.use(cors({
+  origin: function (origin, callback) {
+    if (!origin || allowedOrigins.includes(origin)) {
+      callback(null, true);
+    } else {
+      callback(new Error('Not allowed by CORS'));
+    }
+  },
+  credentials: true
+}));
 app.use(express.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
@@ -174,5 +182,5 @@ app.post("/report", async (req, res) => {
 
 app.get("/admin",)
 
-const PORT = process.env.PORT || 5000;
+const PORT =  process.env.PORT || 5000;
 app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
