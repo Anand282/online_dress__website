@@ -97,7 +97,6 @@ function AppContent() {
         <Route path='/allproduct' element={<Allproduct addToCart={addToCart} />}></Route>
         <Route path='/profile' element={<ProtectedRoute><Profile /></ProtectedRoute>}></Route>
       </Routes>
-
       {/* Conditionally render Footer */}
       {!hiddenPaths.includes(location.pathname) && <Footer />}
     </>
