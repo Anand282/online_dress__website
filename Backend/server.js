@@ -13,7 +13,10 @@ const cartRoutes = require("./routes/cart");
 const saltRounds = 10; 
 const orderRoutes = require("./routes/order");
 
-app.use(cors());
+app.use(cors({
+  origin: 'https://online-dress-website-frontend.onrender.com',
+  credentials: true // if you're using cookies or sessions
+}));
 app.use(express.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
@@ -21,6 +24,7 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use("/api/auth", authRoutes);
 app.use("/api/orders", orderRoutes);
 app.use("/api/cart", cartRoutes);
+
 
 // Multer setup for storing uploaded images
 const storage = multer.diskStorage({
