@@ -17,6 +17,16 @@ const allowedOrigins = [
   'https://online-dress-website-frontend.onrender.com',
   'http://localhost:3000'
 ];
+app.use(cors({
+  origin: function (origin, callback) {
+    if (!origin || allowedOrigins.includes(origin)) {
+      callback(null, true);
+    } else {
+      callback(new Error('Not allowed by CORS'));
+    }
+  },
+  credentials: true
+}));
 
 app.use(cors({
   origin: 'https://online-dress-website-frontend.onrender.com',
@@ -89,7 +99,7 @@ app.post("/register", upload.single("image"), async (req, res) => {
 });
 
 // Login API
-app.post("/", async (req, res) => {
+app.post("/login", async (req, res) => {
     const { username, password } = req.body;
     const db = await getDb();
     const collection = db.collection("register");

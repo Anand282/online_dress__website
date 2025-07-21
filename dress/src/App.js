@@ -75,7 +75,7 @@ function AppContent() {
 
       <Routes>
         <Route path='/admin' element={<AdminLogin />}></Route>
-        <Route path='/' element={<Login />} />
+        <Route path='/login' element={<Login />} />
         <Route path='/register' element={<RegisterForm />} />
 
 
