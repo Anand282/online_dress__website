@@ -2,6 +2,10 @@ require('dotenv').config();
 const express = require('express');
 const app = express();
 const cors = require('cors');
+app.use(cors({
+  origin: 'https://online-dress-website-frontend.onrender.com',
+  credentials: true // if you're using cookies or sessions
+}));
 const multer = require("multer");
 const bodyParser = require('body-parser');
 const { getDb } = require("./db");
@@ -13,10 +17,8 @@ const cartRoutes = require("./routes/cart");
 const saltRounds = 10; 
 const orderRoutes = require("./routes/order");
 
-app.use(cors({
-  origin: 'https://online-dress-website-frontend.onrender.com',
-  credentials: true // if you're using cookies or sessions
-}));
+
+
 app.use(express.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 

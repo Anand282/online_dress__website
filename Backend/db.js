@@ -1,6 +1,6 @@
 const mongodb = require('mongodb');
 const MongoClient = mongodb.MongoClient;
-const url = 'mongodb://127.0.0.1:27017';
+const url = process.env.MONGO_URI;
 let database;
 
 async function getDb() {
