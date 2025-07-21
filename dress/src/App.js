@@ -40,7 +40,7 @@ function AppContent() {
   const location = useLocation(); // Now it's inside <BrowserRouter>
 
   // Define paths where Navbar and Footer should be hidden
-  const hiddenPaths = ['/', '/admin','/register'];
+  const hiddenPaths = ['/login', '/admin','/register'];
 
   const addToCart = (item) => {
     const existingItem = cart.find((cartItem) => cartItem.id === item.id);
