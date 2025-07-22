@@ -40,7 +40,6 @@ app.use("/api/auth", authRoutes);
 app.use("/api/orders", orderRoutes);
 app.use("/api/cart", cartRoutes);
 
-
 // Multer setup for storing uploaded images
 const storage = multer.diskStorage({
     destination: (req, file, cb) => {
@@ -97,6 +96,10 @@ app.post("/register", upload.single("image"), async (req, res) => {
         res.status(500).json({ error: "Server error" });
     }
 });
+
+
+
+
 
 // Login API
 app.post("/", async (req, res) => {
