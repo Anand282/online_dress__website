@@ -14,8 +14,7 @@ const saltRounds = 10;
 const orderRoutes = require("./routes/order");
 
 const allowedOrigins = [
-    'https://online-dress-website.vercel.app',
-    'http://localhost:3000'
+    'https://online-dress-website.vercel.app'
 ];
 
 const corsOptions = {
