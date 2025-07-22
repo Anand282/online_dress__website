@@ -52,7 +52,7 @@ const RegisterForm = () => {
                 formData.append("age", register.age);
                 formData.append("image", image); // Attach image file
 
-                const response = await axios.post("/register", formData, {
+                const response = await axios.post("https://online-dress-website.onrender.com/register", formData, {
                     headers: { "Content-Type": "multipart/form-data" },
                     withCredentials: true, // optional if using cookies
                 });
