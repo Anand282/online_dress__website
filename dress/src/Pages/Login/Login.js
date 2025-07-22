@@ -3,29 +3,33 @@ import axios from "axios";
 import { Link } from "react-router-dom";
 
 const Login = () => {
-    const [user, setUser] = useState({ username: "", password: "" });
+    const [user, setUser] = useState({ email: "", password: "" });
     const [message, setMessage] = useState("");
 
     const handleChange = (e) => {
         setUser({ ...user, [e.target.name]: e.target.value });
     };
 
-
     const handleSubmit = async (e) => {
         e.preventDefault();
         try {
-            const response = await axios.post("https://online-dress-website.onrender.com/", user, {
-                withCredentials: true
-            });
-
+            const response = await axios.post(
+                "https://online-dress-website.onrender.com/api/auth/login",
+                user,
+                {
+                    withCredentials: true,
+                    headers: {
+                        "Content-Type": "application/json"
+                    }
+                }
+            );
 
             if (response.data.success) {
                 localStorage.setItem("authToken", response.data.token);
-                localStorage.setItem("userEmail", response.data.user.email); // Store user email
-
+                localStorage.setItem("userEmail", response.data.user.email);
                 setMessage("Login successful! Redirecting...");
                 setTimeout(() => {
-                    window.location.href = "/home"; // Redirect to home
+                    window.location.href = "/home";
                 }, 2000);
             } else {
                 setMessage(response.data.message);
@@ -35,8 +39,6 @@ const Login = () => {
             setMessage("Server error. Try again later.");
         }
     };
-
-
 
     return (
         <>
@@ -48,10 +50,6 @@ const Login = () => {
                     <li className="nav-item">
                         <Link className="nav-link" to='/admin'>Admin Login</Link>
                     </li>
-                    {/* <li class="nav-item">
-                        <Link class="nav-link" to='/seller'>Seller</Link>
-                    </li> */}
-
                 </ul>
             </div>
             <div className="container">
@@ -61,21 +59,22 @@ const Login = () => {
                         {message && <p>{message}</p>}
                         <form onSubmit={handleSubmit}>
                             <div className="form-group mt-3">
-                                <label>Username:</label>
-                                <input type="text" name="username" className="form-control" onChange={handleChange} placeholder="enter your user name" required />
+                                <label>Email:</label>
+                                <input type="email" name="email" className="form-control" onChange={handleChange} placeholder="Enter your email" required />
                             </div>
 
                             <div className="form-group mt-3">
                                 <label>Password:</label>
-                                <input type="password" name="password" className="form-control" onChange={handleChange} placeholder="enter your password" required />
+                                <input type="password" name="password" className="form-control" onChange={handleChange} placeholder="Enter your password" required />
                             </div>
-                            <br></br>
+                            <br />
                             <button type="submit" className="btn btn-primary mt-2">Login</button>
-                            <button type="button" className="btn btn-primary mt-2 ms-2"><Link to='/register' className="text-decoration-none text-white">Register</Link></button>
+                            <button type="button" className="btn btn-primary mt-2 ms-2">
+                                <Link to='/register' className="text-decoration-none text-white">Register</Link>
+                            </button>
                         </form>
                     </div>
                 </div>
-
             </div>
         </>
     );
