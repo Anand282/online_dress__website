@@ -14,7 +14,7 @@ const saltRounds = 10;
 const orderRoutes = require("./routes/order");
 
 const allowedOrigins = [
-    "https://online-dress-website.vercel.app/",
+    "https://online-dress-website.vercel.app",
     "http://localhost:3000"  // For local testing
 ];
 
@@ -26,9 +26,11 @@ const corsOptions = {
             callback(new Error("Not allowed by CORS"));
         }
     },
-    methods: ['GET', 'HEAD', 'PUT', 'PATCH', 'POST', 'DELETE'],
-    credentials: true
+    credentials: true,
+    methods: ['GET', 'POST', 'PUT', 'PATCH', 'DELETE', 'OPTIONS'],
+    allowedHeaders: ['Content-Type', 'Authorization'],
 };
+
 
 app.use(cors(corsOptions));
 app.options("*", cors(corsOptions));
@@ -65,6 +67,9 @@ const upload = multer({
 // Serve uploaded images statically
 app.use("/uploads", express.static("uploads"));
 
+app.get("/", (req, res) => {
+  res.send("API is running.");
+});
 
 // Register API
 app.post("/register", upload.single("image"), async (req, res) => {
