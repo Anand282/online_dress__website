@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import axios from "axios";
+import axios from "../axios";
 import { Link, useNavigate } from "react-router-dom";
 
 const RegisterForm = () => {
@@ -13,7 +13,7 @@ const RegisterForm = () => {
 
     const [image, setImage] = useState(null);
     const [preview, setPreview] = useState(null);
-    const navigate = useNavigate(); 
+    const navigate = useNavigate();
 
     const on_Changes = (e) => {
         setRegister((prevRegister) => ({
@@ -54,7 +54,9 @@ const RegisterForm = () => {
 
                 const response = await axios.post("/register", formData, {
                     headers: { "Content-Type": "multipart/form-data" },
+                    withCredentials: true, // optional if using cookies
                 });
+
 
                 console.log("Response from server:", response.data);
                 alert("Registration successful! Redirecting to login...");
