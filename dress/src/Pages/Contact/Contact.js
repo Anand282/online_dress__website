@@ -1,11 +1,8 @@
 import React from 'react'
 import { useState } from 'react';
-import { ToastContainer, toast } from 'react-toastify';
+// import { ToastContainer, toast } from 'react-toastify';
 import axios from 'axios';
 const Contact = () => {
-    const notify = () => {
-        toast('form submitted successfully')
-    }
     const [user, setUser] = useState({ 'email': '', 'name': '', 'message': '' });
 
     const on_Change = (e) => {
