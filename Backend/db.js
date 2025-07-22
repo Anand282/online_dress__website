@@ -1,26 +1,23 @@
-const mongodb = require('mongodb');
-const MongoClient = mongodb.MongoClient;
+const { MongoClient } = require("mongodb");
 const url = process.env.MONGO_URI;
 let database;
 
 async function getDb() {
-    const client = await MongoClient.connect(url,
-        //     {
-        //     useNewUrlParser:true,
-        //     useUnifiedTopology:true
-        // }
-    )
-    database = client.db('dressdb');
-    if (database) {
-        console.log('database connected');
+    if (database) return database;
+
+    try {
+        const client = await MongoClient.connect(url, {
+            useNewUrlParser: true,
+            useUnifiedTopology: true,
+        });
+
+        database = client.db("dressdb");
+        console.log("✅ Database connected");
+        return database;
+    } catch (err) {
+        console.error("❌ Database connection error:", err.message);
+        return null;
     }
-    else {
-        console.log('database not connected');
-    }
-    return database;
 }
 
-
-module.exports = {
-    getDb
-}
+module.exports = { getDb };
