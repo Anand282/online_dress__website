@@ -15,7 +15,7 @@ const orderRoutes = require("./routes/order");
 
 const allowedOrigins = [
     "https://online-dress-website.vercel.app",
-    "http://localhost:3000"  // For local testing
+    "http://localhost:3000"
 ];
 
 const corsOptions = {
@@ -67,9 +67,9 @@ const upload = multer({
 // Serve uploaded images statically
 app.use("/uploads", express.static("uploads"));
 
-app.get("/", (req, res) => {
-  res.send("API is running.");
-});
+// app.get("/", (req, res) => {
+//   res.send("API is running.");
+// });
 
 // Register API
 app.post("/register", upload.single("image"), async (req, res) => {
