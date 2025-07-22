@@ -14,7 +14,10 @@ const Login = () => {
     const handleSubmit = async (e) => {
         e.preventDefault();
         try {
-            const response = await axios.post("https://online-dress-website.onrender.com/", user);
+            const response = await axios.post("https://online-dress-website.onrender.com/", user, {
+                withCredentials: true
+            });
+
 
             if (response.data.success) {
                 localStorage.setItem("authToken", response.data.token);

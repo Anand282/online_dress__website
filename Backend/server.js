@@ -1,4 +1,4 @@
-require('dotenv').config(); 
+require('dotenv').config();
 const express = require('express');
 const app = express();
 const cors = require('cors');
@@ -6,17 +6,32 @@ const multer = require("multer");
 const bodyParser = require('body-parser');
 const { getDb } = require("./db");
 const bcrypt = require('bcryptjs');
-const jwt = require("jsonwebtoken");  
+const jwt = require("jsonwebtoken");
 const verifyToken = require("./middleware/verifyToken");
 const authRoutes = require("./routes/auth");
 const cartRoutes = require("./routes/cart");
-const saltRounds = 10; 
+const saltRounds = 10;
 const orderRoutes = require("./routes/order");
+
+const allowedOrigins = [
+    "https://online-dress-website-frontend.onrender.com",
+    "http://localhost:3000"  // For local testing
+];
+
 const corsOptions = {
-    origin: process.env.APPLICATION_URL,
-    methods:'GET,HEAD,PUT,PATCH,POST,DELETE'
-}
+    origin: function (origin, callback) {
+        if (!origin || allowedOrigins.includes(origin)) {
+            callback(null, true);
+        } else {
+            callback(new Error("Not allowed by CORS"));
+        }
+    },
+    methods: ['GET', 'HEAD', 'PUT', 'PATCH', 'POST', 'DELETE'],
+    credentials: true
+};
+
 app.use(cors(corsOptions));
+app.options("*", cors(corsOptions)); // Handle preflight for all routes
 app.use(express.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
@@ -60,16 +75,16 @@ app.post("/register", upload.single("image"), async (req, res) => {
 
     try {
         if (insertForm.email && insertForm.password && insertForm.gender && insertForm.number && insertForm.age && req.file) {
-           
+
             const hashedPassword = await bcrypt.hash(insertForm.password, saltRounds);
 
             const user = {
                 email: insertForm.email,
-                password: hashedPassword, 
+                password: hashedPassword,
                 gender: insertForm.gender,
                 number: insertForm.number,
                 age: insertForm.age,
-                imageUrl: `/uploads/${req.file.filename}`, 
+                imageUrl: `/uploads/${req.file.filename}`,
             };
 
             await collection.insertOne(user);
@@ -93,10 +108,10 @@ app.post("/", async (req, res) => {
         const user = await collection.findOne({ email: username });
 
         if (user) {
-            
+
             const isMatch = await bcrypt.compare(password, user.password);
             if (isMatch) {
-               
+
                 const token = jwt.sign({ email: user.email }, "your_secret_key", { expiresIn: "1h" });
 
                 res.json({ success: true, message: "Login successful", user, token });
@@ -114,14 +129,14 @@ app.post("/", async (req, res) => {
 
 
 app.get("/profile/:email", verifyToken, async (req, res) => {
-    console.log("Token received:", req.headers.authorization); 
+    console.log("Token received:", req.headers.authorization);
 
     try {
         const db = await getDb();
         const collection = db.collection("register");
         const user = await collection.findOne(
             { email: req.params.email },
-            { projection: { password: 0 } } 
+            { projection: { password: 0 } }
         );
 
         if (!user) {
@@ -173,5 +188,5 @@ app.post("/report", async (req, res) => {
 
 app.get("/admin",)
 
-const PORT =  process.env.PORT || 5000;
+const PORT = process.env.PORT || 5000;
 app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
