@@ -14,7 +14,7 @@ const saltRounds = 10;
 const orderRoutes = require("./routes/order");
 
 const allowedOrigins = [
-    'https://online-dress-website.vercel.app'
+    'https://online-dress-website.vercel.app',
 ];
 
 const corsOptions = {
@@ -100,7 +100,7 @@ app.post("/register", upload.single("image"), async (req, res) => {
 });
 
 // Login API
-app.post("/api/auth/login", async (req, res) => {
+app.post("/", async (req, res) => {
     const { username, password } = req.body;
     const db = await getDb();
     const collection = db.collection("register");
