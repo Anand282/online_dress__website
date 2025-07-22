@@ -35,7 +35,7 @@ const orderRoutes = require("./routes/order");
 app.use(cors({
     origin:"*"
 }));
-app.options("*", cors(corsOptions));
+// app.options("*", cors(corsOptions));
 app.use(express.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
