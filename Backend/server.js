@@ -14,7 +14,7 @@ const saltRounds = 10;
 const orderRoutes = require("./routes/order");
 
 const allowedOrigins = [
-    "https://online-dress-website-frontend.onrender.com",
+    "https://online-dress-website.vercel.app/",
     "http://localhost:3000"  // For local testing
 ];
 
@@ -31,7 +31,7 @@ const corsOptions = {
 };
 
 app.use(cors(corsOptions));
-app.options("*", cors(corsOptions)); // Handle preflight for all routes
+app.options("*", cors(corsOptions));
 app.use(express.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 

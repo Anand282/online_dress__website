@@ -13,7 +13,7 @@ const AdminLogin = () => {
     const handleSubmit = async (e) => {
         e.preventDefault();
         try {
-            const response = await axios.post("http://localhost:5000/admin/login", admin);
+            const response = await axios.post("https://online-dress-website-61vs-backend.vercel.app//admin/login", admin);
 
             if (response.data.success) {
                 localStorage.setItem("adminAuthToken", response.data.token);
