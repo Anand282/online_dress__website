@@ -13,26 +13,28 @@ const cartRoutes = require("./routes/cart");
 const saltRounds = 10;
 const orderRoutes = require("./routes/order");
 
-const allowedOrigins = [
-    "https://online-dress-website.vercel.app",
-    "http://localhost:3000"
-];
+// const allowedOrigins = [
+//     "https://online-dress-website.vercel.app",
+//     "http://localhost:3000"
+// ];
 
-const corsOptions = {
-    origin: function (origin, callback) {
-        if (!origin || allowedOrigins.includes(origin)) {
-            callback(null, true);
-        } else {
-            callback(new Error("Not allowed by CORS"));
-        }
-    },
-    credentials: true,
-    methods: ['GET', 'POST', 'PUT', 'PATCH', 'DELETE', 'OPTIONS'],
-    allowedHeaders: ['Content-Type', 'Authorization'],
-};
+// const corsOptions = {
+//     origin: function (origin, callback) {
+//         if (!origin || allowedOrigins.includes(origin)) {
+//             callback(null, true);
+//         } else {
+//             callback(new Error("Not allowed by CORS"));
+//         }
+//     },
+//     credentials: true,
+//     methods: ['GET', 'POST', 'PUT', 'PATCH', 'DELETE', 'OPTIONS'],
+//     allowedHeaders: ['Content-Type', 'Authorization']
+// };
 
 
-app.use(cors(corsOptions));
+app.use(cors({
+    origin:"*"
+}));
 app.options("*", cors(corsOptions));
 app.use(express.json());
 app.use(bodyParser.urlencoded({ extended: true }));
@@ -101,10 +103,6 @@ app.post("/register", upload.single("image"), async (req, res) => {
         res.status(500).json({ error: "Server error" });
     }
 });
-
-
-
-
 
 // Login API
 app.post("/", async (req, res) => {
